@@ -33,4 +33,4 @@ class MunicipioAjaxView(View):
 
 def formulario_estado_municipio(request):
     estados = Estado.objects.all().order_by('nombre')
-    return render(request, 'estados/templates/form_estado_municipio.html', {'estados': estados})
+    return render(request, 'form_estado_municipio.html', {'estados': estados})

@@ -1,34 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Selecciona estado y municipio</title>
+  <meta charset="utf-8" />
+  <title>Selección de Estado y Municipio</title>
   {% load static %}
-  <script src="{% static 'js/estado_municipio.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'estados/css/estilos.css' %}">
+  <script src="{% static 'estados/js/estado_municipio.js' %}" defer></script>
 </head>
 <body>
-  <h1>Selecciona estado y municipio</h1>
-  <form method="post" id="form-estado-muni">
-    {% csrf_token %}
-    <label for="estado">Estado:</label>
-    <select id="estado" name="estado">
-      <option value="">-- Selecciona un estado --</option>
-      {% for e in estados %}
-        <option value="{{ e.id }}">{{ e.nombre }}</option>
-      {% endfor %}
-    </select>
+  <header>
+    <h1>Explorador de Municipios</h1>
+    <p class="subtitle">Selecciona un estado y consulta sus municipios</p>
+  </header>
 
-    <br>
+  <main>
+    <section class="form-card">
+      <form id="estadoForm" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="estado">Estado:</label>
+          <select id="estado" name="estado" required>
+            <option value="">-- Selecciona un estado --</option>
+            {% for e in estados %}
+              <option value="{{ e.id }}">{{ e.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </form>
+    </section>
 
-    <label for="municipio">Municipio:</label>
-    <select id="municipio" name="municipio">
-      <option value="">-- Selecciona un municipio --</option>
-    </select>
+    <section id="municipios-section" class="table-section">
+      <h2>Municipios</h2>
+      <p id="mensaje" class="info-msg">Selecciona un estado para ver sus municipios.</p>
 
-    <br>
-
-    <button type="submit">Enviar</button>
-  </form>
+      <table id="municipios-table" class="hidden">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre del Municipio</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
 
 </body>
 </html>
