@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Selecciona estado y municipio</title>
+  {% load static %}
+  <script src="{% static 'js/estado_municipio.js' %}"></script>
+</head>
+<body>
+  <h1>Selecciona estado y municipio</h1>
+  <form method="post" id="form-estado-muni">
+    {% csrf_token %}
+    <label for="estado">Estado:</label>
+    <select id="estado" name="estado">
+      <option value="">-- Selecciona un estado --</option>
+      {% for e in estados %}
+        <option value="{{ e.id }}">{{ e.nombre }}</option>
+      {% endfor %}
+    </select>
+
+    <br>
+
+    <label for="municipio">Municipio:</label>
+    <select id="municipio" name="municipio">
+      <option value="">-- Selecciona un municipio --</option>
+    </select>
+
+    <br>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+</body>
+</html>
