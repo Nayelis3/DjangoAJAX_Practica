@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Inicio | Sistema de Estados y Municipios</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'estados/css/estilos.css' %}">
+</head>
+<body>
+  <header>
+    <h1>Sistema de Estados y Municipios</h1>
+    <p class="subtitle">Gestiona y explora la información fácilmente</p>
+  </header>
+
+  <main>
+    <section class="menu-card">
+      <h2>Selecciona una acción</h2>
+      <div class="button-container">
+        <a href="{% url 'crear_estado' %}" class="btn-menu">➕ Crear Estado</a>
+        <a href="{% url 'crear_municipio' %}" class="btn-menu">🏙 Crear Municipio</a>
+        <a href="{% url 'form_estado_municipio' %}" class="btn-menu">📋 Ver Municipios por Estado</a>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

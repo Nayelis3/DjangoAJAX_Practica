@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Crear Municipio</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'estados/css/estilos.css' %}">
+</head>
+<body>
+  <header>
+    <h1>Registrar un Nuevo Municipio</h1>
+    <p class="subtitle">Asigna el municipio al estado correspondiente</p>
+  </header>
+
+  <main>
+    <section class="form-card">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-primary">Guardar Municipio</button>
+      </form>
+
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="link">
+        <a href="{% url 'crear_estado' %}">Crear estado</a> |
+        <a href="{% url 'inicio' %}"> Volver al explorador</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,10 +1,13 @@
-from django.shortcuts import render
-
-# Create your views here.
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.views import View
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from .models import Estado
+from .forms import EstadoForm, MunicipioForm
+
+def inicio(request):
+    return render(request, 'inicio.html')
 
 class MunicipioAjaxView(View):
     def get(self, request, *args, **kwargs):
@@ -34,3 +37,30 @@ class MunicipioAjaxView(View):
 def formulario_estado_municipio(request):
     estados = Estado.objects.all().order_by('nombre')
     return render(request, 'form_estado_municipio.html', {'estados': estados})
+
+def crear_estado(request):
+    if request.method == 'POST':
+        form = EstadoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Estado creado correctamente.')
+            return redirect('crear_estado')
+        else:
+            messages.error(request, '❌ Error al crear el estado.')
+    else:
+        form = EstadoForm()
+    return render(request, 'crear_estado.html', {'form': form})
+
+
+def crear_municipio(request):
+    if request.method == 'POST':
+        form = MunicipioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Municipio creado correctamente.')
+            return redirect('crear_municipio')
+        else:
+            messages.error(request, '❌ Error al crear el municipio.')
+    else:
+        form = MunicipioForm()
+    return render(request, 'crear_municipio.html', {'form': form})
